@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#101827">
+    <title>Pokémon: Duelo Prisma</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Nunito:wght@400;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="app-shell">
+        <header class="topbar">
+            <a class="brand" href="#top" aria-label="Pokémon Duelo Prisma">
+                <span class="brand-mark">P</span>
+                <span><strong>DUelo</strong><small>PRISMA</small></span>
+            </a>
+            <div class="topbar-status"><span class="status-dot"></span><span id="connectionStatus">Conectando
+                    Pokédex...</span></div>
+            <button class="icon-button" id="soundToggle" type="button"
+                aria-label="Activar o desactivar sonido">♫</button>
+        </header>
+
+        <main id="top">
+            <section class="hero-section">
+                <div class="hero-copy">
+                    <p class="eyebrow">ARENA DE ENTRENADORES · GEN I — IX</p>
+                    <h1>Tu estrategia.<br><em>Tu leyenda.</em></h1>
+                    <p class="hero-text">Forma tu equipo desde las nueve generaciones y demuestra quién domina el campo
+                        de batalla.</p>
+                    <a class="scroll-link" href="#selection">Elegir combatientes <span>↓</span></a>
+                </div>
+                <div class="hero-art" aria-hidden="true">
+                    <div class="pokeball-giant"><span></span></div>
+                    <div class="spark spark-a">✦</div>
+                    <div class="spark spark-b">✦</div>
+                    <div class="spark spark-c">✧</div>
+                </div>
+            </section>
+
+            <section class="selection-section" id="selection">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">01 / EQUIPO</p>
+                        <h2>Forma tu escuadrón</h2>
+                        <p class="section-note">Elige tres Pokémon por lado. Puedes repetir generaciones, pero nunca un
+                            Pokémon.</p>
+                    </div><button class="randomize-button" id="randomizeAll" type="button"><span>⤨</span> Formar
+                        equipos</button>
+                </div>
+                <div class="mode-tabs" role="tablist"><button class="mode-tab active" data-mode="battle" type="button">⚔
+                        Duelo 3VS3</button><button class="mode-tab" data-mode="gyms" type="button">♜ Liga de
+                        gimnasios</button><button class="mode-tab" data-mode="tower" type="button">♜ Torre de
+                        poder</button></div>
+                <div class="selection-grid team-selection">
+                    <article class="trainer-panel player-panel">
+                        <div class="panel-label"><span class="label-number">01</span><span>TU EQUIPO · <b
+                                    id="playerCount">0/3</b></span><span class="panel-line"></span></div>
+                        <div class="team-slots" id="playerSlots"></div>
+                        <div class="search-row"><label class="search-box"><span>⌕</span><input id="playerSearch"
+                                    type="search" placeholder="Buscar Pokémon..." autocomplete="off"></label><button
+                                class="dice-button" id="playerRandom" type="button"
+                                aria-label="Completar equipo aleatoriamente">⤨</button></div>
+                        <div class="pokemon-list" id="playerList"></div>
+                    </article>
+                    <div class="versus-column">
+                        <div class="vs-badge">VS</div>
+                        <div class="versus-line"></div><span>3 CONTRA 3</span>
+                    </div>
+                    <article class="trainer-panel rival-panel">
+                        <div class="panel-label"><span class="label-number">02</span><span>RIVAL CPU · <b
+                                    id="cpuCount">0/3</b></span><span class="panel-line"></span></div>
+                        <div class="team-slots" id="cpuSlots"></div>
+                        <div class="search-row"><label class="search-box"><span>⌕</span><input id="cpuSearch"
+                                    type="search" placeholder="Buscar rival..." autocomplete="off"></label><button
+                                class="dice-button" id="cpuRandom" type="button"
+                                aria-label="Completar rival aleatoriamente">⤨</button></div>
+                        <div class="pokemon-list" id="cpuList"></div>
+                    </article>
+                </div>
+                <div class="selection-footer">
+                    <div class="generation-filter"><span>GENERACIÓN</span><select id="generationFilter"
+                            aria-label="Filtrar por generación">
+                            <option value="all">Todas · I — IX</option>
+                            <option value="1">I · Kanto</option>
+                            <option value="2">II · Johto</option>
+                            <option value="3">III · Hoenn</option>
+                            <option value="4">IV · Sinnoh</option>
+                            <option value="5">V · Teselia</option>
+                            <option value="6">VI · Kalos</option>
+                            <option value="7">VII · Alola</option>
+                            <option value="8">VIII · Galar</option>
+                            <option value="9">IX · Paldea</option>
+                        </select></div><button class="start-button" id="startBattle" type="button" disabled>Entrar a la
+                        arena <span>→</span></button>
+                </div>
+                <div class="mode-info" id="modeInfo"><strong>DUelo 3VS3</strong><span>Una batalla clásica por equipos.
+                        Cuando un Pokémon cae, entra automáticamente el siguiente.</span></div>
+            </section>
+
+            <section class="challenge-section" id="challengePanel" hidden>
+                <div class="challenge-heading">
+                    <div>
+                        <p class="eyebrow" id="challengeEyebrow">03 / DESAFÍO</p>
+                        <h2 id="challengeTitle">Liga de gimnasios</h2>
+                        <p id="challengeDescription">Conquista las medallas de cada región y desbloquea el siguiente
+                            gimnasio.</p>
+                    </div>
+                    <div class="challenge-progress"><strong id="challengeProgress">0 / 8</strong><span
+                            id="challengeProgressLabel">MEDALLAS</span></div>
+                </div>
+                <div class="challenge-track" id="challengeTrack"></div><button class="start-button challenge-start"
+                    id="startChallenge" type="button">Desafiar <span>→</span></button>
+            </section>
+
+            <section class="battle-section" id="battle" hidden>
+                <div class="battle-heading">
+                    <div>
+                        <p class="eyebrow">02 / COMBATE</p>
+                        <h2>Arena Prisma</h2>
+                    </div><button class="text-button" id="backToSelection" type="button">← Cambiar equipo</button>
+                </div>
+                <div class="battle-arena" id="battleArena">
+                    <div class="arena-grid"></div>
+                    <div class="arena-burst burst-one"></div>
+                    <div class="arena-burst burst-two"></div>
+                    <div class="battle-card player-battle-card">
+                        <div class="battle-name-row">
+                            <div><span class="mini-label">TÚ · ACTIVO</span>
+                                <h3 id="battlePlayerName">—</h3>
+                            </div><span class="level-tag" id="playerLevel">Nv. 5</span>
+                        </div>
+                        <div class="health-track">
+                            <div class="health-fill" id="playerHealthFill"></div>
+                        </div>
+                        <div class="health-numbers"><span id="playerHpText">— / —</span><span>PS</span></div><img
+                            id="playerBattleImage" alt="Tu Pokémon">
+                    </div>
+                    <div class="battle-center">
+                        <div class="turn-chip" id="turnStatus">TU TURNO</div>
+                        <div class="battle-log" id="battleLog">Elige un ataque para comenzar.</div>
+                    </div>
+                    <div class="battle-card cpu-battle-card">
+                        <div class="battle-name-row">
+                            <div><span class="mini-label">RIVAL CPU · ACTIVO</span>
+                                <h3 id="battleCpuName">—</h3>
+                            </div><span class="level-tag" id="cpuLevel">Nv. 5</span>
+                        </div>
+                        <div class="health-track">
+                            <div class="health-fill" id="cpuHealthFill"></div>
+                        </div>
+                        <div class="health-numbers"><span id="cpuHpText">— / —</span><span>PS</span></div><img
+                            id="cpuBattleImage" alt="Pokémon rival">
+                    </div>
+                    <div class="bench-row">
+                        <div><span>Tu equipo</span>
+                            <div class="bench-list" id="playerBench"></div>
+                        </div>
+                        <div><span>Equipo rival</span>
+                            <div class="bench-list" id="cpuBench"></div>
+                        </div>
+                    </div>
+                    <div class="move-panel">
+                        <p class="move-title">Selecciona tu movimiento</p>
+                        <div class="move-grid" id="moveGrid"></div><button class="reset-battle" id="resetBattle"
+                            type="button">↻ Reiniciar combate</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer><span>POKÉMON · DUELO PRISMA</span><span>Hecho para entrenadores con hambre de victoria</span></footer>
+    </div>
+    <div class="toast" id="toast" role="status"></div>
+    <script src="script.js"></script>
+</body>
+
+</html>
